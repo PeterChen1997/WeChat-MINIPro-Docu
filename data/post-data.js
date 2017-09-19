@@ -7,7 +7,11 @@ let post_contents = [
         reading: "112",
         collection: "96",
         avatar: "/images/avatar/2.png",
-        postId: "0"
+        postId: "0",
+        headImgSrc:"/images/post/crab.png",
+        author:"Peter",
+        dateTime:"24 hours earlier",
+        detail:"李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演"
     },
     {
         date: "Nov 25 2016",
@@ -17,7 +21,11 @@ let post_contents = [
         reading: "112",
         collection: "96",
         avatar: "/images/avatar/2.png",
-        postId: "1"
+        postId: "0",
+        headImgSrc: "/images/post/crab.png",
+        author: "Peter",
+        dateTime: "24 hours earlier",
+        detail: "李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演李安是以为绝不会重复自己的导演"
     }
 ]
 

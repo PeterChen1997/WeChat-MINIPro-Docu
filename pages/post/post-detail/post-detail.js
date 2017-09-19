@@ -1,60 +1,81 @@
-//index.js
-//获取应用实例
-const app = getApp()
+const postsData = require('../../../data/post-data.js');
 
 Page({
-    onTap:function(){
-        wx.redirectTo({
-            url: '../post/post',
+
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        postData: {}
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        let postId = options.id;
+        
+        let postData = postsData.postList[postId];
+
+        let postsCollected = wx.getStorageSync(postsCollected);
+        if(postsCollected){
+            let collected = postsCollected[postId];
+            this.setData({
+                collected:true
+            });
+        }else {
+            let postsCollected = {};
+            postsCollected[postId] = false;
+            wx.setStorageSync("postsCollected", postsCollected)
+        }
+            
+
+
+        this.setData({
+            postData: postData,
+            postId:postId
+        });
+
+
+
+        wx.setStorageSync("", "");
+    },
+
+
+    onCollectionTap:function(event) {
+        let postsCollected = wx.getStorageSync("postsCollected");
+        let postCollected = postsCollected[this.data.postId];
+        postCollected = !postCollected;
+        postsCollected[this.data.postId] = postCollected;
+        wx.setStorageSync("postsCollected", postsCollected);
+
+        this.setData({
+            collected:!this.data.collected
+        });
+
+        wx.showToast({
+            title: this.data.collected?'收藏成功':'取消收藏成功',
         })
     },
 
-  data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+    onShareTap:function(event){
+        let itemList = [
+            "分享给微信好友",
+            "分享到QQ"
+        ];
+        wx.showActionSheet({
+            itemList: itemList,
+            itemColor:"#405f80",
+            success:function(res){
+                // res.cancel
+                // res.tapIndex
+                wx.showModal({
+                    title: '用户分享到了' + itemList[res.tapIndex],
+                    content: '',
+                })
+            }
         })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+
+
 })

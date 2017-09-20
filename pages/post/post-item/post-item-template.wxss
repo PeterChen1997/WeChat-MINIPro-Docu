@@ -7,7 +7,7 @@
     width: 60rpx;
     height: 60rpx;
     /* 垂直居中 */
-    vertical-align:middle; 
+     vertical-align:middle;  
 }
 
 .post-date {

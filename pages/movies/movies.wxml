@@ -1,0 +1,7 @@
+<import src="moive-list/moive-list-template.wxml" />
+
+<view>
+    <template is="moiveListTemplate" />
+    <template is="moiveListTemplate" />
+    <template is="moiveListTemplate" />
+</view>

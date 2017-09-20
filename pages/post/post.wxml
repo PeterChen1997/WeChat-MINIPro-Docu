@@ -4,13 +4,13 @@
     <view>
         <swiper indicator-dots="true" autoplay='true'>
             <swiper-item>
-                <image src='../../images/vr.png'></image>
+                <image catchtap='onSwiperTap' src='../../images/vr.png' data-postId='4'></image>
             </swiper-item>
             <swiper-item>
-                <image src='../../images/iqiyi.png'></image>
+                <image catchtap='onSwiperTap'  src='../../images/iqiyi.png' data-postId='1'></image>
             </swiper-item>
             <swiper-item>
-                <image src='../../images/wx.png'></image>
+                <image catchtap='onSwiperTap'  src='../../images/wx.png' data-postId='3'></image>
             </swiper-item>
         </swiper>
     </view>

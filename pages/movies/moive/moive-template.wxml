@@ -1,0 +1,9 @@
+<import src="../stars/stars-template.wxml" />
+
+<template name="moiveTemplate">
+    <view>
+        <image></image>
+        <text></text>
+        <template is="starsTemplate" />
+    </view>
+</template>

@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
     onTap:function(){
-        wx.redirectTo({
+        wx.navigateTo({
             url: '../post/post',
         })
     },

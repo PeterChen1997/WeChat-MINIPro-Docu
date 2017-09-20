@@ -1,4 +1,5 @@
 const postsData = require('../../../data/post-data.js');
+const app = getApp();
 
 Page({
 
@@ -18,11 +19,11 @@ Page({
         
         let postData = postsData.postList[postId];
 
-        let postsCollected = wx.getStorageSync(postsCollected);
+        let postsCollected = wx.getStorageSync("postsCollected");
         if(postsCollected){
             let collected = postsCollected[postId];
             this.setData({
-                collected:true
+                collected: collected
             });
         }else {
             let postsCollected = {};
@@ -37,11 +38,36 @@ Page({
             postId:postId
         });
 
-
-
-        wx.setStorageSync("", "");
+        console.log(app.globalData.g_currentMusicPostId,postId);
+        if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId===postId) {
+            this.setData({
+                isPlayingMusic:true
+            });
+        }
+        this.setMusicMonitor();
+ 
     },
 
+
+    setMusicMonitor:function() {
+        //由框架api控制播放
+        let that = this;
+        wx.onBackgroundAudioPlay(function () {
+            that.setData({
+                isPlayingMusic: true
+            });
+            app.globalData.g_isPlayingMusic = true;
+            app.globalData.g_currentMusicPostId = that.data.postId;
+            console.log(app.globalData.g_currentMusicPostId);
+        });
+        wx.onBackgroundAudioPause(function () {
+            that.setData({
+                isPlayingMusic: false
+            });
+            app.globalData.g_isPlayingMusic = false;
+            app.globalData.g_currentMusicPostId = null;
+        });
+    },
 
     onCollectionTap:function(event) {
         let postsCollected = wx.getStorageSync("postsCollected");
@@ -51,7 +77,7 @@ Page({
         wx.setStorageSync("postsCollected", postsCollected);
 
         this.setData({
-            collected:!this.data.collected
+            collected: postCollected
         });
 
         wx.showToast({

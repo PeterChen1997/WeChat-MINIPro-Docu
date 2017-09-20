@@ -1,23 +1,10 @@
-const postData = require('../../data/post-data');
-
 Page({
-    onPostTap:function(event){
-        let postId = event.currentTarget.dataset.postid;
-        wx.navigateTo({
-            url: 'post-detail/post-detail?id=' + postId,
-        })
-    },
-    onSwiperTap: function (event) {
-        let postId = event.currentTarget.dataset.postid;
-        wx.navigateTo({
-            url: 'post-detail/post-detail?id=' + postId,
-        })
-    },
+
   /**
    * 页面的初始数据
    */
   data: {
-    posts_key:[]
+    
   },
 
   /**
@@ -25,10 +12,6 @@ Page({
    */
   onLoad: function (options) {
     
-    this.setData({
-        post_key: postData.postList
-    });
-
   },
 
   /**

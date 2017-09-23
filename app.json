@@ -1,17 +1,21 @@
 {
     "pages": [
+                "pages/index/index",
+                
+        "pages/post/post",
         "pages/movies/movies",
-    "pages/movies/more-movie/more-movie",
-    "pages/post/post",
+        "pages/movies/movie-detail/movie-detail",
+        "pages/movies/more-movie/more-movie",
+        
         "pages/logs/logs",
-        "pages/index/index",
         "pages/post/post-detail/post-detail"
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#b3d4db",
         "navigationBarTitleText": "WeChat",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+            "navigationBarBackgroundColor": "#405f80"
+            
     },
     "tabBar": {
         "borderStyle": "white",

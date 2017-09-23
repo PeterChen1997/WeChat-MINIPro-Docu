@@ -1,7 +1,7 @@
 <template name="postItem">
     <view class='post-container'>
         <view class='post-author-date'>
-            <image src="{{avatar}}" class='post-author'></image>
+            <image src="{{avatar}}" class='post-author' mode='aspectFill'></image>
             <text class='post-date'>{{date}}</text>
         </view>
         <text class='post-title'>{{title}}</text>

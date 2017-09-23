@@ -13,7 +13,11 @@ Page({
         isEmpty: true
     },
 
-
+    onMovieTap: function (event) {
+        wx.navigateTo({
+            url: 'movie-detail/movie-detail?movieId=' + event.currentTarget.dataset.movieid
+        });
+    },
     onScrollLower: function (event) {
         let nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
         util.http(nextUrl, this.processDoubanData);
@@ -69,7 +73,7 @@ Page({
             }
 
             let temp = {
-                stars: util.converToStarsArray(subject.rating.stars),
+                stars: util.convertToStarsArray(subject.rating.stars),
                 title: title,
                 average: subject.rating.average,
                 coverageUrl: subject.images.large,

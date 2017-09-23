@@ -41,8 +41,31 @@ function http (title,callBack) {
     })
 }
 
+function convertToCastString(casts) {
+    let castsjoin = "";
+    for(let idx in casts) {
+        castsjoin = castsjoin + casts[idx].name + " / ";
+    }
+    //去除最后一个斜杠
+    return castsjoin.substring(0,castsjoin.length-2);
+}
+
+function convertToCastInfos(casts) {
+    let castsArray = [];
+    for(let idx in casts) {
+        let cast = {
+            img: casts[idx].avatars? casts[idx].avatars.large:"",
+            name:casts[idx].name 
+        }
+        castsArray.push(cast);
+    }
+    return castsArray;
+}
+
 module.exports = {
     formatTime: formatTime,
-    converToStarsArray: convertToStarsArray,
+    convertToStarsArray: convertToStarsArray,
+    convertToCastInfos: convertToCastInfos,
+    convertToCastString: convertToCastString,
     http:http
 }

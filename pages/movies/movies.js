@@ -8,9 +8,33 @@ Page({
   data: {
     inTheaters:{},
     comingSoon:{},
-    top250:{}
+    top250:{},
+    searchResult:{},
+    containerShow:true,
+    searchPanelShow:false
   },
 
+
+onCancelImgTap:function(event) {
+    this.setData({
+        containerShow: true,
+        searchPanelShow: false,
+        //是否清空搜索结果
+        // searchResult:{}
+    });
+},
+onBindFocus:function(){
+    this.setData({
+        containerShow:false,
+        searchPanelShow:true
+    });
+
+},
+    onBindChange: function (event){
+    let text  = event.detail.value;
+    let searchUrl = "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl,"searchResult","");
+},
   /**
    * 生命周期函数--监听页面加载
    */
@@ -28,6 +52,12 @@ Page({
 wx.navigateTo({
     url: 'more-movie/more-movie?category=' + event.currentTarget.dataset.category,
 })
+  },
+
+  onMovieTap: function (event) {
+      wx.navigateTo({
+          url: 'movie-detail/movie-detail?movieId=' + event.currentTarget.dataset.movieid
+      });
   },
 
   getMovieListData: function (title, settedKey, categoryTitle){
@@ -54,7 +84,7 @@ wx.navigateTo({
         }
 
         let temp = {
-            stars:util.converToStarsArray(subject.rating.stars),
+            stars:util.convertToStarsArray(subject.rating.stars),
             title: title,
             average: subject.rating.average,
             coverageUrl:subject.images.large,

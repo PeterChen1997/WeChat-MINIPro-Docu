@@ -15,7 +15,7 @@ Page({
 
     onMovieTap: function (event) {
         wx.navigateTo({
-            url: 'movie-detail/movie-detail?movieId=' + event.currentTarget.dataset.movieid
+            url: '../movie-detail/movie-detail?movieId=' + event.currentTarget.dataset.movieid
         });
     },
     onScrollLower: function (event) {

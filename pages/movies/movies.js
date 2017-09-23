@@ -1,3 +1,4 @@
+const util = require('../../utils/util.js');
 const app = getApp();
 Page({
 
@@ -18,12 +19,18 @@ Page({
       let comingSoon = "/v2/movie/coming_soon?start=0&count=3";
       let top250Url = "/v2/movie/top250?start=0&count=3";
     
-    this.getMovieListData(inTheatersUrl,"inTheaters");
-    this.getMovieListData(comingSoon,"comingSoon");
-    this.getMovieListData(top250Url,"top250");
+    this.getMovieListData(inTheatersUrl,"inTheaters","正在热映");
+    this.getMovieListData(comingSoon,"comingSoon","即将上映");
+    this.getMovieListData(top250Url,"top250","豆瓣Top250");
   },
 
-  getMovieListData:function(title, settedKey){
+  onMoreTap:function(event){
+wx.navigateTo({
+    url: 'more-movie/more-movie?category=' + event.currentTarget.dataset.category,
+})
+  },
+
+  getMovieListData: function (title, settedKey, categoryTitle){
       let that = this;
       wx.request({
           url: 'https://api.douban.com' + title,
@@ -31,23 +38,23 @@ Page({
               "content-type": "application/xml"
           },
           success: function (res) {
-              console.log(res);
-            that.processDoubanData(res.data,settedKey);
+              that.processDoubanData(res.data, settedKey, categoryTitle);
           }
 
       })
   },
 
-  processDoubanData:function(moviesData,settedKey){
+  processDoubanData:function(moviesData,settedKey,categoryTitle){
     let movies = [];
     for(let idx in moviesData.subjects){
         let subject = moviesData.subjects[idx];
         let title = subject.title;
-        if(title.length >=6){
+        if(title.length >6){
             title = title.substring(0,6) + '...';
         }
 
         let temp = {
+            stars:util.converToStarsArray(subject.rating.stars),
             title: title,
             average: subject.rating.average,
             coverageUrl:subject.images.large,
@@ -58,9 +65,10 @@ Page({
 
     }
 
-
+//利用动态特性
     let moviesArr = {};
     moviesArr[settedKey] = {
+        categoryTitle: categoryTitle,
         movies:movies
     }
 
